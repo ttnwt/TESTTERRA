@@ -1,14 +1,48 @@
-node('master') 
-{
-    stage('Continuous Download')
-                   {
-                     git branch: 'terraform', credentialsId: 'me', url: 'https://github.com/ttnwt/TESTTERRA.git'
-                   }
-    stage('TF Init$Plan')
-                   {
-                    sh 'terraform init'
-                    sh 'terraform plan'
-                   }
+pipeline {
+
+agent any
+
+stages {
+
+     stage(‘Checkout’) {
+
+     steps {
+           {
+            git branch: 'terraform', credentialsId: 'me', url: 'https://github.com/ttnwt/TESTTERRA.git'
+            }
+     stage('TF Init$Plan')
+                   
+     }
+  
+     }
+
+    stage (“terraform init”) {
+
+    steps {
+
+          sh (‘terraform init’)
+
+           }
+
+      }
+
+      stage (“terraform Action”) {
+
+        steps {
+
+         echo “Terraform action is –> ${action}”
+
+         sh (‘terraform ${action} –auto-approve’)
+
+}
+
+}
+
+}
+
+}
+
+ 
     //  stage('Continuous delivery')
     //                {
     //                 input message: 'Waiting for approval from executor', submitter: 'ttwnt'
