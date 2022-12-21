@@ -4,13 +4,14 @@ provider "aws" {
 resource "aws_instance" "terra1" {
   ami           = "ami-0149b2da6ceec4bb0"
   instance_type = "t2.large"
+  count = 5
   tags = {
     Name = "terra1"
   }
 }
 resource "aws_instance" "terra2" {
   ami           = "ami-0149b2da6ceec4bb0"
-  instance_type = "t2.large"
+  instance_type = "t3.large"
   tags = {
     Name = "terra2"
   }
